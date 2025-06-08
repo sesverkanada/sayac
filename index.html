@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call for Justice in Türkiye</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        /* Language Toggle Styles */
+        .lang-toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9em;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .lang-toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin: 0 10px;
+        }
+
+        .lang-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #c82333; /* A more serious red tone */
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        /* Main container for the cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1300px;
+            margin: 30px auto;
+        }
+
+        .person-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .person-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #eee;
+        }
+        
+        .person-card h2 {
+            margin: 15px 0 5px 0;
+            font-size: 1.8em;
+        }
+
+        .person-card .status {
+            font-size: 1em;
+            color: #c82333;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .timer-display {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .time-unit {
+            background-color: #f9f9f9;
+            padding: 10px 5px;
+            border-radius: 5px;
+        }
+
+        .time-unit .value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #333;
+            line-height: 1;
+        }
+
+        .time-unit .label {
+            font-size: 0.7em;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .info-link {
+            display: inline-block;
+            margin-top: auto; /* Pushes the link to the bottom */
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .info-link:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="lang-toggle-container">
+        <span>EN</span>
+        <label class="lang-toggle">
+            <input type="checkbox" id="languageToggle">
+            <span class="slider"></span>
+        </label>
+        <span>TR</span>
+    </div>
+
+    <div class="header">
+        <h1 data-key="mainTitle">A Call for Justice</h1>
+        <p data-key="mainSubtitle">Tracking the time of political imprisonment in Türkiye. In a democracy, there is no place for political prisoners. We demand justice and freedom.</p>
+    </div>
+
+    <div class="grid-container">
+        <div class="person-card">
+            <img src="https://pbs.twimg.com/profile_images/1558009149530800128/nIihF5ji_400x400.jpg" alt="Ekrem İmamoğlu">
+            <h2>Ekrem İmamoğlu</h2>
+            <p class="status" data-key="statusImamoglu">Politically Imprisoned</p>
+            <div id="timer-imamoglu" class="timer-display"></div>
+            <a href="https://en.ekremimamoglu.com/" target="_blank" class="info-link" data-key="link" data-link-en="https://en.ekremimamoglu.com/" data-link-tr="https://www.ekremimamoglu.com/">Learn More</a>
+        </div>
+
+        <div class="person-card">
+            <img src="https://pbs.twimg.com/profile_images/1642802069663784961/R0o_riAt_400x400.jpg" alt="Ümit Özdağ">
+            <h2>Ümit Özdağ</h2>
+            <p class="status" data-key="statusOzdag">Politically Imprisoned</p>
+            <div id="timer-ozdag" class="timer-display"></div>
+            <a href="https://www.zaferpartisi.org.tr/" target="_blank" class="info-link" data-key="link" data-link-en="https://www.zaferpartisi.org.tr/" data-link-tr="https://www.zaferpartisi.org.tr/">Learn More</a>
+        </div>
+
+        <div class="person-card">
+            <img src="https://pbs.twimg.com/profile_images/1647508657993547776/ml45P_CI_400x400.jpg" alt="Can Atalay">
+            <h2>Can Atalay</h2>
+            <p class="status" data-key="statusAtalay">Politically Imprisoned</p>
+            <div id="timer-atalay" class="timer-display"></div>
+            <a href="https://tip.org.tr/en/free-can-atalay" target="_blank" class="info-link" data-key="link" data-link-en="https://tip.org.tr/en/free-can-atalay" data-link-tr="https://tip.org.tr/basin-aciklamalari/yargi-darbesine-karsi-mucadele-edecegiz/">Learn More</a>
+        </div>
+
+        <div class="person-card">
+            <img src="https://pbs.twimg.com/profile_images/1643928268922339329/nCu-OhVK_400x400.jpg" alt="Selahattin Demirtaş">
+            <h2>Selahattin Demirtaş</h2>
+            <p class="status" data-key="statusDemirtas">Politically Imprisoned</p>
+            <div id="timer-demirtas" class="timer-display"></div>
+            <a href="https://www.demparti.org.tr/en/urgent-call-from-the-dem-party-regarding-the-unlawful-verdicts-in-the-kobani-case/20051/" target="_blank" class="info-link" data-key="link" data-link-en="https://www.demparti.org.tr/en/urgent-call-from-the-dem-party-regarding-the-unlawful-verdicts-in-the-kobani-case/20051/" data-link-tr="https://www.demparti.org.tr/tr/demirtas-in-mesaji/17954/">Learn More</a>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                mainTitle: "A Call for Justice",
+                mainSubtitle: "Tracking the time of political imprisonment in Türkiye. In a democracy, there is no place for political prisoners. We demand justice and freedom.",
+                statusImamoglu: "Politically Imprisoned",
+                statusOzdag: "Politically Imprisoned",
+                statusAtalay: "Politically Imprisoned",
+                statusDemirtas: "Politically Imprisoned",
+                link: "Learn More",
+                timeUnits: { years: "Years", months: "Months", days: "Days", hours: "Hours" }
+            },
+            tr: {
+                mainTitle: "Adalet Çağrısı",
+                mainSubtitle: "Türkiye'deki siyasi tutukluluk sürelerinin takibi. Demokraside siyasi tutuklulara yer yoktur. Adalet ve özgürlük talep ediyoruz.",
+                statusImamoglu: "Siyasi Tutuklu",
+                statusOzdag: "Siyasi Tutuklu",
+                statusAtalay: "Siyasi Tutuklu",
+                statusDemirtas: "Siyasi Tutuklu",
+                link: "Daha Fazla Bilgi",
+                timeUnits: { years: "Yıl", months: "Ay", days: "Gün", hours: "Saat" }
+            }
+        };
+
+        const languageToggle = document.getElementById('languageToggle');
+        let currentLang = localStorage.getItem('language') || 'en';
+
+        function switchLanguage(lang) {
+            document.documentElement.lang = lang;
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+
+            // Update all text content
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            // Update all hyperlinks
+            document.querySelectorAll('a.info-link').forEach(link => {
+                const url = link.getAttribute(`data-link-${lang}`);
+                if (url) {
+                    link.setAttribute('href', url);
+                }
+            });
+        }
+        
+        const clockConfigs = [
+            { id: 'timer-imamoglu', date: new Date("2025-03-19T00:00:00") },
+            { id: 'timer-ozdag', date: new Date("2025-01-19T00:00:00") },
+            { id: 'timer-atalay', date: new Date("2022-04-22T00:00:00") },
+            { id: 'timer-demirtas', date: new Date("2016-11-04T00:00:00") }
+        ];
+
+        function createCountUp(elementId, startDate) {
+            const timerElement = document.getElementById(elementId);
+
+            function updateTimer() {
+                const now = new Date();
+                
+                // If start date is in the future, show 0
+                if (startDate > now) {
+                    const units = translations[currentLang].timeUnits;
+                    timerElement.innerHTML = `
+                        <div class="time-unit"><div class="value">0</div><div class="label">${units.years}</div></div>
+                        <div class="time-unit"><div class="value">0</div><div class="label">${units.months}</div></div>
+                        <div class="time-unit"><div class="value">0</div><div class="label">${units.days}</div></div>
+                        <div class="time-unit"><div class="value">0</div><div class="label">${units.hours}</div></div>
+                    `;
+                    return;
+                }
+
+                let tempDate = new Date(startDate);
+                
+                let years = now.getFullYear() - tempDate.getFullYear();
+                let months = now.getMonth() - tempDate.getMonth();
+                let days = now.getDate() - tempDate.getDate();
+                let hours = now.getHours() - tempDate.getHours();
+
+                if (hours < 0) {
+                    days--;
+                    hours += 24;
+                }
+                if (days < 0) {
+                    months--;
+                    // Get days in the previous month
+                    const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                    days += lastMonth.getDate();
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                const units = translations[currentLang].timeUnits;
+                timerElement.innerHTML = `
+                    <div class="time-unit"><div class="value">${years}</div><div class="label">${units.years}</div></div>
+                    <div class="time-unit"><div class="value">${months}</div><div class="label">${units.months}</div></div>
+                    <div class="time-unit"><div class="value">${days}</div><div class="label">${units.days}</div></div>
+                    <div class="time-unit"><div class="value">${hours}</div><div class="label">${units.hours}</div></div>
+                `;
+            }
+
+            updateTimer(); // Initial call
+            return setInterval(updateTimer, 1000 * 60); // Update every minute is sufficient for this display
+        }
+
+        function startAllTimers() {
+            // Clear existing intervals if any
+            if (window.timerIntervals) {
+                window.timerIntervals.forEach(clearInterval);
+            }
+            window.timerIntervals = [];
+
+            clockConfigs.forEach(config => {
+                const intervalId = createCountUp(config.id, config.date);
+                window.timerIntervals.push(intervalId);
+            });
+        }
+        
+        // --- INITIALIZATION ---
+        languageToggle.addEventListener('change', () => {
+            const lang = languageToggle.checked ? 'tr' : 'en';
+            switchLanguage(lang);
+            startAllTimers(); // Restart timers to update labels
+        });
+
+        // Set initial state on page load
+        if (currentLang === 'tr') {
+            languageToggle.checked = true;
+        }
+        switchLanguage(currentLang);
+        startAllTimers();
+
+    </script>
+</body>
+</html>
