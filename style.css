@@ -1,0 +1,245 @@
+/* Base styles from original HTML */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 0 auto;
+    color: #555;
+}
+
+/* Language Toggle Styles */
+.lang-toggle-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    background-color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.lang-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin: 0 10px;
+}
+
+.lang-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #c82333;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Main container for the cards */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1300px;
+    margin: 30px auto;
+}
+
+.person-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    text-align: center;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.person-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #eee;
+}
+
+.person-card h2 {
+    margin: 15px 0 5px 0;
+    font-size: 1.8em;
+    color: #333; /* Default color */
+}
+
+.person-card .status {
+    font-size: 1em;
+    color: #c82333;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.timer-display {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.time-unit {
+    background-color: #f9f9f9;
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+
+.time-unit .value {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #333;
+    line-height: 1;
+}
+
+.time-unit .label {
+    font-size: 0.7em;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.info-link {
+    display: inline-block;
+    margin-top: auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.info-link:hover {
+    background-color: #0056b3;
+}
+
+/* Custom styling for each person's card */
+
+/* İmamoğlu Card - Red background, white title, black timer/text */
+.person-card:nth-child(1) {
+    background-color: #E81D23;
+}
+
+.person-card:nth-child(1) h2 {
+    color: white;
+}
+
+.person-card:nth-child(1) .status,
+.person-card:nth-child(1) .time-unit .value,
+.person-card:nth-child(1) .time-unit .label {
+    color: black;
+}
+
+.person-card:nth-child(1) .time-unit {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Özdağ Card - White background, red title, black timer/text */
+.person-card:nth-child(2) {
+    background-color: white;
+}
+
+.person-card:nth-child(2) h2 {
+    color: #BF181F;
+}
+
+.person-card:nth-child(2) .status,
+.person-card:nth-child(2) .time-unit .value,
+.person-card:nth-child(2) .time-unit .label {
+    color: black;
+}
+
+/* Atalay Card - Red background, white title, black timer/text */
+.person-card:nth-child(3) {
+    background-color: #DB333C;
+}
+
+.person-card:nth-child(3) h2 {
+    color: white;
+}
+
+.person-card:nth-child(3) .status,
+.person-card:nth-child(3) .time-unit .value,
+.person-card:nth-child(3) .time-unit .label {
+    color: black;
+}
+
+.person-card:nth-child(3) .time-unit {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Demirtaş Card - Purple background, white title, black timer/text */
+.person-card:nth-child(4) {
+    background-color: #74489C;
+}
+
+.person-card:nth-child(4) h2 {
+    color: white;
+}
+
+.person-card:nth-child(4) .status,
+.person-card:nth-child(4) .time-unit .value,
+.person-card:nth-child(4) .time-unit .label {
+    color: black;
+}
+
+.person-card:nth-child(4) .time-unit {
+    background-color: rgba(255, 255, 255, 0.9);
+}
