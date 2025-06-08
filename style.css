@@ -119,6 +119,11 @@ input:checked + .slider:before {
     margin: 15px 0 5px 0;
     font-size: 1.8em;
     color: #333; /* Default color */
+    height: 2.2em; /* Fixed height to ensure uniform line count */
+    line-height: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .person-card .status {
