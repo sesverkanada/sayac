@@ -126,9 +126,10 @@ input:checked + .slider:before {
     color: #333; /* Default color */
     line-height: 1.1em;
     position: absolute;
-    top: 25px;
+    top: 50%; /* Position at 50% from top */
     left: 165px; /* 25px + 120px image width + 20px margin */
     right: 25px; /* Leave some margin on the right */
+    transform: translateY(-50%); /* Move up by 50% of its own height to center */
 }
 
 .person-card .status {
