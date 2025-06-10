@@ -105,30 +105,25 @@ input:checked + .slider:before {
     flex-direction: column;
 }
 
-/* Header section with image and title side by side */
-.person-card .card-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px; /* Reduced space between h2 and status */
-    justify-content: flex-start; /* Both elements left-aligned */
-}
-
+/* Image and h2 positioned side by side at the top */
 .person-card img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #eee;
+    float: left;
     margin-right: 20px;
-    flex-shrink: 0;
+    margin-bottom: 10px;
 }
 
 .person-card h2 {
-    margin: 0;
+    margin: 15px 0 5px 0; /* Reduced bottom margin */
     font-size: 1.8em;
     color: #333; /* Default color */
     line-height: 1.1em;
-    text-align: left; /* Explicitly left-align the text */
+    display: inline-block;
+    vertical-align: top;
 }
 
 .person-card .status {
@@ -137,6 +132,7 @@ input:checked + .slider:before {
     font-weight: 600;
     margin-bottom: 15px;
     text-align: center;
+    clear: both; /* Clear the float from img and h2 */
 }
 
 .timer-display {
