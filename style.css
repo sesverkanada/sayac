@@ -110,6 +110,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     margin-bottom: 5px; /* Reduced space between h2 and status */
+    justify-content: flex-start; /* Both elements left-aligned */
 }
 
 .person-card img {
@@ -127,7 +128,7 @@ input:checked + .slider:before {
     font-size: 1.8em;
     color: #333; /* Default color */
     line-height: 1.1em;
-    flex: 1;
+    text-align: left; /* Explicitly left-align the text */
 }
 
 .person-card .status {
@@ -139,12 +140,13 @@ input:checked + .slider:before {
 }
 
 .timer-display {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 10px;
     width: 100%;
-    margin: 0 auto 20px auto; /* Center the timer display horizontally */
-    max-width: 280px; /* Optional: limit max width for better centering */
+    margin: 0 auto 20px auto;
+    flex-wrap: wrap;
 }
 
 .time-unit {
