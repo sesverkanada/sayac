@@ -103,27 +103,32 @@ input:checked + .slider:before {
     padding: 25px;
     display: flex;
     flex-direction: column;
+    position: relative;
+    padding-top: 160px; /* Make room for the absolutely positioned header */
 }
 
-/* Image and h2 positioned side by side at the top */
+/* Image positioned absolutely at top-left */
 .person-card img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #eee;
-    float: left;
-    margin-right: 20px;
-    margin-bottom: 10px;
+    position: absolute;
+    top: 25px;
+    left: 25px;
 }
 
+/* h2 positioned absolutely next to the image */
 .person-card h2 {
-    margin: 15px 0 5px 0; /* Reduced bottom margin */
+    margin: 0;
     font-size: 1.8em;
     color: #333; /* Default color */
     line-height: 1.1em;
-    display: inline-block;
-    vertical-align: top;
+    position: absolute;
+    top: 25px;
+    left: 165px; /* 25px + 120px image width + 20px margin */
+    right: 25px; /* Leave some margin on the right */
 }
 
 .person-card .status {
@@ -132,7 +137,6 @@ input:checked + .slider:before {
     font-weight: 600;
     margin-bottom: 15px;
     text-align: center;
-    clear: both; /* Clear the float from img and h2 */
 }
 
 .timer-display {
