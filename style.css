@@ -42,4 +42,228 @@ body {
 }
 
 .lang-toggle {
-    position
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin: 0 10px;
+}
+
+.lang-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #c82333;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Main container for the cards */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1300px;
+    margin: 30px auto;
+}
+
+/* Base card style */
+.person-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.5s;
+    position: relative;
+}
+
+.person-card.released {
+    opacity: 0.75;
+}
+
+.person-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #eee;
+    margin-bottom: 15px;
+}
+
+.person-card h2 {
+    margin: 0 0 5px 0;
+    font-size: 1.8em;
+}
+
+.person-card .status {
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    position: relative;
+    padding: 5px 10px;
+    height: 40px; /* Give space for sticker */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.released-sticker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-10deg);
+    background-color: #28a745;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    width: max-content;
+}
+
+.timer-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 10px;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto 20px auto;
+}
+
+.time-unit {
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+
+.time-unit .value {
+    font-size: 1.8em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.time-unit .label {
+    font-size: 0.7em;
+    text-transform: uppercase;
+}
+
+.info-link {
+    display: inline-block;
+    margin-top: auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    font-family: inherit;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.info-link:hover {
+    background-color: #0056b3;
+}
+
+/* Card-specific Styles */
+.person-card:nth-child(1) { background-color: #E81D23; }
+.person-card:nth-child(1) h2 { color: white; }
+.person-card:nth-child(1) .status,
+.person-card:nth-child(1) .time-unit .value,
+.person-card:nth-child(1) .time-unit .label { color: black; }
+.person-card:nth-child(1) .time-unit { background-color: rgba(255, 255, 255, 0.9); }
+
+.person-card:nth-child(2) { background-color: white; }
+.person-card:nth-child(2) h2 { color: #BF181F; }
+.person-card:nth-child(2) .status,
+.person-card:nth-child(2) .time-unit .value,
+.person-card:nth-child(2) .time-unit .label { color: black; }
+.person-card:nth-child(2) .time-unit { background-color: #f9f9f9; }
+
+.person-card:nth-child(3) { background-color: #DB333C; }
+.person-card:nth-child(3) h2 { color: white; }
+.person-card:nth-child(3) .status,
+.person-card:nth-child(3) .time-unit .value,
+.person-card:nth-child(3) .time-unit .label { color: black; }
+.person-card:nth-child(3) .time-unit { background-color: rgba(255, 255, 255, 0.9); }
+
+.person-card:nth-child(4) { background-color: #74489C; }
+.person-card:nth-child(4) h2 { color: white; }
+.person-card:nth-child(4) .status,
+.person-card:nth-child(4) .time-unit .value,
+.person-card:nth-child(4) .time-unit .label { color: black; }
+.person-card:nth-child(4) .time-unit { background-color: rgba(255, 255, 255, 0.9); }
+
+/* --- MODAL STYLES --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 99; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.6); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 8px;
+    position: relative;
+    line-height: 1.6;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
