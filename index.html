@@ -96,7 +96,6 @@
             document.querySelectorAll('[data-key]').forEach(element => {
                 const key = element.getAttribute('data-key');
                 if (translations[lang][key]) {
-                    // Get the immediate text content, ignoring child nodes for status
                     if (element.classList.contains('status')) {
                          element.childNodes[0].nodeValue = translations[lang][key] + ' ';
                     } else {
@@ -111,7 +110,6 @@
                     link.setAttribute('href', url);
                 }
             });
-            // Update sticker text on language switch
             const sticker = document.querySelector('#ozdag-card .released-sticker');
             if (sticker) {
                  sticker.textContent = translations[currentLang].releasedSticker;
@@ -144,12 +142,26 @@
         
         function displayDuration(element, duration) {
             const units = translations[currentLang].timeUnits;
-            element.innerHTML = `
-                <div class="time-unit"><div class="value">${duration.years}</div><div class="label">${units.years}</div></div>
-                <div class="time-unit"><div class="value">${duration.months}</div><div class="label">${units.months}</div></div>
-                <div class="time-unit"><div class="value">${duration.days}</div><div class="label">${units.days}</div></div>
-                <div class="time-unit"><div class="value">${duration.hours}</div><div class="label">${units.hours}</div></div>
-            `;
+            let html = '';
+
+            // --- FIX: Conditionally add time units to the HTML string ---
+            if (duration.years > 0) {
+                html += `<div class="time-unit"><div class="value">${duration.years}</div><div class="label">${units.years}</div></div>`;
+            }
+            if (duration.months > 0) {
+                html += `<div class="time-unit"><div class="value">${duration.months}</div><div class="label">${units.months}</div></div>`;
+            }
+            // Always show days and hours, even if zero, unless the whole duration is zero.
+            if (duration.years > 0 || duration.months > 0 || duration.days > 0 || duration.hours > 0) {
+                 html += `<div class="time-unit"><div class="value">${duration.days}</div><div class="label">${units.days}</div></div>`;
+                 html += `<div class="time-unit"><div class="value">${duration.hours}</div><div class="label">${units.hours}</div></div>`;
+            } else {
+                // Handle case where duration is exactly 0 (e.g., future date)
+                 html += `<div class="time-unit"><div class="value">0</div><div class="label">${units.days}</div></div>`;
+                 html += `<div class="time-unit"><div class="value">0</div><div class="label">${units.hours}</div></div>`;
+            }
+
+            element.innerHTML = html;
         }
         
         function displayFixedDuration(config) {
@@ -159,7 +171,6 @@
             const duration = calculateDuration(config.date, config.releaseDate);
             displayDuration(timerElement, duration);
 
-            // Add released class and sticker
             cardElement.classList.add('released');
             const sticker = cardElement.querySelector('.released-sticker');
             sticker.textContent = translations[currentLang].releasedSticker;
@@ -200,7 +211,7 @@
         languageToggle.addEventListener('change', () => {
             const lang = languageToggle.checked ? 'tr' : 'en';
             switchLanguage(lang);
-            startAllTimers(); // Restart to update labels correctly
+            startAllTimers();
         });
 
         // Initial Load
