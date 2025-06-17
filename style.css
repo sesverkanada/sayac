@@ -1,4 +1,4 @@
-/* Base styles from original HTML */
+/* Base styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
@@ -96,9 +96,8 @@ input:checked + .slider:before {
     margin: 30px auto;
 }
 
+/* Base card style */
 .person-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     padding: 25px;
@@ -107,10 +106,11 @@ input:checked + .slider:before {
     align-items: center;
     text-align: center;
     transition: opacity 0.5s;
+    position: relative;
 }
 
 .person-card.released {
-    opacity: 0.7;
+    opacity: 0.75;
 }
 
 .person-card img {
@@ -122,21 +122,14 @@ input:checked + .slider:before {
     margin-bottom: 15px;
 }
 
-.person-card h2 {
-    margin: 0 0 5px 0;
-    font-size: 1.8em;
-}
-
 .person-card .status {
     font-size: 1em;
-    color: #c82333;
     font-weight: 600;
     margin-bottom: 15px;
-    position: relative; /* Needed for sticker positioning */
+    position: relative;
     padding: 5px 10px;
 }
 
-/* --- NEW RELEASED STICKER --- */
 .released-sticker {
     position: absolute;
     top: 50%;
@@ -154,7 +147,7 @@ input:checked + .slider:before {
 
 .timer-display {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
     gap: 10px;
     width: 100%;
     max-width: 280px;
@@ -162,7 +155,6 @@ input:checked + .slider:before {
 }
 
 .time-unit {
-    background-color: #f9f9f9;
     padding: 10px 5px;
     border-radius: 5px;
 }
@@ -170,14 +162,12 @@ input:checked + .slider:before {
 .time-unit .value {
     font-size: 1.8em;
     font-weight: 700;
-    color: #333;
     line-height: 1;
 }
 
 .time-unit .label {
     font-size: 0.7em;
     text-transform: uppercase;
-    color: #666;
 }
 
 .info-link {
@@ -193,4 +183,71 @@ input:checked + .slider:before {
 
 .info-link:hover {
     background-color: #0056b3;
+}
+
+/* --- RESTORED CARD-SPECIFIC STYLES --- */
+
+/* İmamoğlu Card */
+.person-card:nth-child(1) {
+    background-color: #E81D23;
+}
+.person-card:nth-child(1) h2 {
+    color: white;
+}
+.person-card:nth-child(1) .status,
+.person-card:nth-child(1) .time-unit .value,
+.person-card:nth-child(1) .time-unit .label {
+    color: black;
+}
+.person-card:nth-child(1) .time-unit {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Özdağ Card */
+.person-card:nth-child(2) {
+    background-color: white;
+}
+.person-card:nth-child(2) h2 {
+    color: #BF181F;
+}
+.person-card:nth-child(2) .status,
+.person-card:nth-child(2) .time-unit .value,
+.person-card:nth-child(2) .time-unit .label {
+    color: black;
+}
+.person-card:nth-child(2) .time-unit {
+    background-color: #f9f9f9;
+}
+
+
+/* Atalay Card */
+.person-card:nth-child(3) {
+    background-color: #DB333C;
+}
+.person-card:nth-child(3) h2 {
+    color: white;
+}
+.person-card:nth-child(3) .status,
+.person-card:nth-child(3) .time-unit .value,
+.person-card:nth-child(3) .time-unit .label {
+    color: black;
+}
+.person-card:nth-child(3) .time-unit {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Demirtaş Card */
+.person-card:nth-child(4) {
+    background-color: #74489C;
+}
+.person-card:nth-child(4) h2 {
+    color: white;
+}
+.person-card:nth-child(4) .status,
+.person-card:nth-child(4) .time-unit .value,
+.person-card:nth-child(4) .time-unit .label {
+    color: black;
+}
+.person-card:nth-child(4) .time-unit {
+    background-color: rgba(255, 255, 255, 0.9);
 }
