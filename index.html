@@ -18,7 +18,7 @@
     </div>
 
     <div class="header">
-        <h1 data-key="mainTitle">A Call for Justice</h1>
+        <h1 data-key="mainTitle">Call for Justice</h1>
         <p data-key="mainSubtitle">Tracking the time of political imprisonment in Türkiye. In a democracy, there is no place for political prisoners. We demand justice and freedom.</p>
     </div>
 
@@ -28,7 +28,7 @@
             <h2>Ekrem İmamoğlu</h2>
             <p class="status" data-key="statusImamoglu">Politically Imprisoned</p>
             <div id="timer-imamoglu" class="timer-display"></div>
-            <a href="https://en.ekremimamoglu.com/" target="_blank" class="info-link" data-key="link" data-link-en="https://en.ekremimamoglu.com/" data-link-tr="https://www.ekremimamoglu.com/">Learn More</a>
+            <button class="info-link" data-key="link" data-person="imamoglu">Learn More</button>
         </div>
 
         <div class="person-card" id="ozdag-card">
@@ -39,7 +39,7 @@
                 <span class="released-sticker"></span>
             </p>
             <div id="timer-ozdag" class="timer-display"></div>
-            <a href="https://www.zaferpartisi.org.tr/" target="_blank" class="info-link" data-key="link" data-link-en="https://www.zaferpartisi.org.tr/" data-link-tr="https://www.zaferpartisi.org.tr/">Learn More</a>
+            <button class="info-link" data-key="link" data-person="ozdag">Learn More</button>
         </div>
 
         <div class="person-card">
@@ -47,7 +47,7 @@
             <h2>Can Atalay</h2>
             <p class="status" data-key="statusAtalay">Politically Imprisoned</p>
             <div id="timer-atalay" class="timer-display"></div>
-            <a href="https://tip.org.tr/en/free-can-atalay" target="_blank" class="info-link" data-key="link" data-link-en="https://tip.org.tr/en/free-can-atalay" data-link-tr="https://tip.org.tr/basin-aciklamalari/yargi-darbesine-karsi-mucadele-edecegiz/">Learn More</a>
+            <button class="info-link" data-key="link" data-person="atalay">Learn More</button>
         </div>
 
         <div class="person-card">
@@ -55,14 +55,21 @@
             <h2>Selahattin Demirtaş</h2>
             <p class="status" data-key="statusDemirtas">Politically Imprisoned</p>
             <div id="timer-demirtas" class="timer-display"></div>
-            <a href="https://www.demparti.org.tr/en/urgent-call-from-the-dem-party-regarding-the-unlawful-verdicts-in-the-kobani-case/20051/" target="_blank" class="info-link" data-key="link" data-link-en="https://www.demparti.org.tr/en/urgent-call-from-the-dem-party-regarding-the-unlawful-verdicts-in-the-kobani-case/20051/" data-link-tr="https://www.demparti.org.tr/tr/demirtas-in-mesaji/17954/">Learn More</a>
+            <button class="info-link" data-key="link" data-person="demirtas">Learn More</button>
         </div>
+    </div>
+    
+    <div id="noteModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <p id="modalText"></p>
+      </div>
     </div>
 
     <script>
         const translations = {
             en: {
-                mainTitle: "A Call for Justice",
+                mainTitle: "Call for Justice",
                 mainSubtitle: "Tracking the time of political imprisonment in Türkiye. In a democracy, there is no place for political prisoners. We demand justice and freedom.",
                 statusImamoglu: "Politically Imprisoned",
                 statusOzdag: "Politically Imprisoned",
@@ -70,7 +77,13 @@
                 statusDemirtas: "Politically Imprisoned",
                 link: "Learn More",
                 releasedSticker: "RELEASED!",
-                timeUnits: { years: "Years", months: "Months", days: "Days", hours: "Hours" }
+                timeUnits: { years: "Years", months: "Months", days: "Days", hours: "Hours" },
+                notes: {
+                    imamoglu: "Ekrem İmamoğlu, the democratically elected Mayor of Istanbul, was imprisoned based on vague accusations of corruption. These charges rely heavily on anonymous witnesses and politically motivated claims. No public, concrete evidence has been presented. Despite having no finalized court ruling against him, he was suspended from office. His photos were banned from public display, and his social media accounts were restricted. This is not just an attack on one politician. It is a direct assault on millions of voters. When a mayor chosen by the people is punished without proof, that is not justice. That is a warning to anyone who dares to challenge those in power.",
+                    ozdag: "Ümit Özdağ was imprisoned for 148 days without being formally charged. The accusations include “inciting hatred” and “insulting the president,” based only on anonymous social media posts. There were no named witnesses, no acts of violence, and no real evidence. He was eventually sentenced to two years and four months in prison but released because the time he had already spent in jail was considered 'enough.' This is not justice. It is punishment for opposing views. Imprisoning political figures based on opinions and secret accusations is persecution, not law.",
+                    atalay: "Can Atalay, a human rights lawyer and elected Member of Parliament, has been imprisoned since 2022 for allegedly attempting to overthrow the government during the peaceful Gezi Park protests. There is no evidence linking him to violence, only his role as an activist and organizer. In 2023, he was elected to Parliament from prison. However, he was denied the right to take his seat. The Constitutional Court ruled twice that his imprisonment violated his rights, yet the lower courts refused to comply. Keeping an elected official in prison against the decision of the highest court is not just illegal. It is a rejection of democracy itself.",
+                    demirtas: "Selahattin Demirtaş has been held in prison since 2016 on charges that are based entirely on political speeches and peaceful protest. The case depends on secret witnesses and distorted narratives. The European Court of Human Rights has ruled twice that his imprisonment is politically motivated and unlawful. Yet, Turkish government refuses to release him. His continued detention is not just a violation of his rights. It is an attack on freedom of expression and democratic rights."
+                }
             },
             tr: {
                 mainTitle: "Adalet Çağrısı",
@@ -80,14 +93,51 @@
                 statusAtalay: "Siyasi Tutuklu",
                 statusDemirtas: "Siyasi Tutuklu",
                 link: "Daha Fazla Bilgi",
-                releasedSticker: "SERBEST BIRAKILDI!",
-                timeUnits: { years: "Yıl", months: "Ay", days: "Gün", hours: "Saat" }
+                releasedSticker: "Serbest!",
+                timeUnits: { years: "Yıl", months: "Ay", days: "Gün", hours: "Saat" },
+                notes: {
+                    imamoglu: "Ekrem İmamoğlu, demokratik olarak seçilmiş İstanbul Büyükşehir Belediye Başkanı, belirsiz yolsuzluk suçlamalarıyla hapsedildi. Bu suçlamalar büyük ölçüde anonim tanıklara ve siyasi amaçlı iddialara dayanmaktadır. Kamuoyuna sunulmuş somut bir kanıt yoktur. Hakkında kesinleşmiş bir mahkeme kararı olmamasına rağmen görevden alındı. Fotoğraflarının kamuya açık alanlarda sergilenmesi yasaklandı ve sosyal medya hesapları kısıtlandı. Bu sadece bir siyasetçiye yönelik bir saldırı değildir. Bu, milyonlarca seçmenin iradesine yönelik doğrudan bir saldırıdır. Halk tarafından seçilmiş bir belediye başkanı, kanıt olmadan cezalandırıldığında, bu adalet değildir. Bu, iktidardakilere meydan okumaya cüret eden herkese bir uyarıdır.",
+                    ozdag: "Ümit Özdağ, resmi bir suçlama olmaksızın 148 gün boyunca hapiste tutuldu. Suçlamalar arasında, yalnızca anonim sosyal medya paylaşımlarına dayanan “halkı kin ve düşmanlığa tahrik” ve “cumhurbaşkanına hakaret” yer alıyordu. İsimli tanıklar, şiddet eylemleri ve gerçek bir kanıt yoktu. Sonunda iki yıl dört ay hapis cezasına çarptırıldı, ancak hapiste geçirdiği sürenin 'yeterli' görülmesi nedeniyle serbest bırakıldı. Bu adalet değildir. Bu, karşıt görüşlere yönelik bir cezalandırmadır. Siyasi figürleri, görüşlere ve gizli suçlamalara dayanarak hapsetmek, hukuk değil, zulümdür.",
+                    atalay: "İnsan hakları avukatı ve seçilmiş Milletvekili Can Atalay, barışçıl Gezi Parkı protestoları sırasında hükümeti devirmeye teşebbüs ettiği iddiasıyla 2022'den beri hapistedir. Şiddetle bağlantısını gösteren hiçbir kanıt yoktur; sadece bir aktivist ve örgütleyici olarak rolü vardır. 2023 yılında hapisteyken Milletvekili seçildi. Ancak, Meclis'te yemin etme hakkı engellendi. Anayasa Mahkemesi, tutukluluğunun haklarını ihlal ettiğine iki kez karar vermesine rağmen, alt mahkemeler bu karara uymayı reddetti. Seçilmiş bir yetkiliyi, en yüksek mahkemenin kararına karşı hapiste tutmak sadece yasa dışı değildir. Bu, demokrasinin kendisinin reddidir.",
+                    demirtas: "Selahattin Demirtaş, tamamen siyasi konuşmalara ve barışçıl protestolara dayanan suçlamalarla 2016'dan beri hapiste tutulmaktadır. Dava, gizli tanıklara ve çarpıtılmış anlatılara dayanmaktadır. Avrupa İnsan Hakları Mahkemesi, tutukluluğunun siyasi amaçlı ve hukuka aykırı olduğuna iki kez karar vermiştir. Ancak, Türk hükümeti onu serbest bırakmayı reddetmektedir. Devam eden tutukluluğu sadece onun haklarının ihlali değildir. Bu, ifade özgürlüğüne ve demokratik haklara yönelik bir saldırıdır."
+                }
             }
         };
 
         const languageToggle = document.getElementById('languageToggle');
         let currentLang = localStorage.getItem('language') || 'en';
 
+        // --- MODAL ELEMENTS & LOGIC ---
+        const modal = document.getElementById("noteModal");
+        const modalText = document.getElementById("modalText");
+        const closeButton = document.querySelector(".close-button");
+
+        function openModal(personKey) {
+            const note = translations[currentLang].notes[personKey];
+            if (note) {
+                modalText.innerText = note;
+                modal.style.display = "block";
+            }
+        }
+        
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        document.querySelectorAll('.info-link').forEach(button => {
+            button.addEventListener('click', () => {
+                const personKey = button.getAttribute('data-person');
+                openModal(personKey);
+            });
+        });
+        closeButton.onclick = closeModal;
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // --- LANGUAGE & TIMER LOGIC ---
         function switchLanguage(lang) {
             document.documentElement.lang = lang;
             currentLang = lang;
@@ -103,15 +153,9 @@
                     }
                 }
             });
-
-            document.querySelectorAll('a.info-link').forEach(link => {
-                const url = link.getAttribute(`data-link-${lang}`);
-                if (url) {
-                    link.setAttribute('href', url);
-                }
-            });
+            
             const sticker = document.querySelector('#ozdag-card .released-sticker');
-            if (sticker) {
+            if (sticker.textContent) { // Only update if it's already visible
                  sticker.textContent = translations[currentLang].releasedSticker;
             }
         }
@@ -144,23 +188,19 @@
             const units = translations[currentLang].timeUnits;
             let html = '';
 
-            // --- FIX: Conditionally add time units to the HTML string ---
             if (duration.years > 0) {
                 html += `<div class="time-unit"><div class="value">${duration.years}</div><div class="label">${units.years}</div></div>`;
             }
             if (duration.months > 0) {
                 html += `<div class="time-unit"><div class="value">${duration.months}</div><div class="label">${units.months}</div></div>`;
             }
-            // Always show days and hours, even if zero, unless the whole duration is zero.
             if (duration.years > 0 || duration.months > 0 || duration.days > 0 || duration.hours > 0) {
                  html += `<div class="time-unit"><div class="value">${duration.days}</div><div class="label">${units.days}</div></div>`;
                  html += `<div class="time-unit"><div class="value">${duration.hours}</div><div class="label">${units.hours}</div></div>`;
             } else {
-                // Handle case where duration is exactly 0 (e.g., future date)
                  html += `<div class="time-unit"><div class="value">0</div><div class="label">${units.days}</div></div>`;
                  html += `<div class="time-unit"><div class="value">0</div><div class="label">${units.hours}</div></div>`;
             }
-
             element.innerHTML = html;
         }
         
@@ -178,7 +218,6 @@
 
         function createCountUp(config) {
             const timerElement = document.getElementById(config.id);
-
             function updateTimer() {
                 const now = new Date();
                 if (config.date > now) {
