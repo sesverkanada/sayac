@@ -31,10 +31,13 @@
             <a href="https://en.ekremimamoglu.com/" target="_blank" class="info-link" data-key="link" data-link-en="https://en.ekremimamoglu.com/" data-link-tr="https://www.ekremimamoglu.com/">Learn More</a>
         </div>
 
-        <div class="person-card">
+        <div class="person-card" id="ozdag-card">
             <img src="https://pbs.twimg.com/profile_images/1642802069663784961/R0o_riAt_400x400.jpg" alt="Ümit Özdağ">
             <h2>Ümit Özdağ</h2>
-            <p class="status" data-key="statusOzdag">Politically Imprisoned</p>
+            <p class="status" data-key="statusOzdag">
+                Politically Imprisoned
+                <span class="released-sticker"></span>
+            </p>
             <div id="timer-ozdag" class="timer-display"></div>
             <a href="https://www.zaferpartisi.org.tr/" target="_blank" class="info-link" data-key="link" data-link-en="https://www.zaferpartisi.org.tr/" data-link-tr="https://www.zaferpartisi.org.tr/">Learn More</a>
         </div>
@@ -66,6 +69,7 @@
                 statusAtalay: "Politically Imprisoned",
                 statusDemirtas: "Politically Imprisoned",
                 link: "Learn More",
+                releasedSticker: "RELEASED!",
                 timeUnits: { years: "Years", months: "Months", days: "Days", hours: "Hours" }
             },
             tr: {
@@ -76,6 +80,7 @@
                 statusAtalay: "Siyasi Tutuklu",
                 statusDemirtas: "Siyasi Tutuklu",
                 link: "Daha Fazla Bilgi",
+                releasedSticker: "SERBEST BIRAKILDI!",
                 timeUnits: { years: "Yıl", months: "Ay", days: "Gün", hours: "Saat" }
             }
         };
@@ -88,113 +93,117 @@
             currentLang = lang;
             localStorage.setItem('language', lang);
 
-            // Update all text content
             document.querySelectorAll('[data-key]').forEach(element => {
                 const key = element.getAttribute('data-key');
                 if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
+                    // Get the immediate text content, ignoring child nodes for status
+                    if (element.classList.contains('status')) {
+                         element.childNodes[0].nodeValue = translations[lang][key] + ' ';
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
                 }
             });
 
-            // Update all hyperlinks
             document.querySelectorAll('a.info-link').forEach(link => {
                 const url = link.getAttribute(`data-link-${lang}`);
                 if (url) {
                     link.setAttribute('href', url);
                 }
             });
+            // Update sticker text on language switch
+            const sticker = document.querySelector('#ozdag-card .released-sticker');
+            if (sticker) {
+                 sticker.textContent = translations[currentLang].releasedSticker;
+            }
         }
         
         const clockConfigs = [
             { id: 'timer-imamoglu', date: new Date("2025-03-19T00:00:00") },
-            { id: 'timer-ozdag', date: new Date("2025-01-20T00:00:00") },
+            { id: 'timer-ozdag', date: new Date("2025-01-19T00:00:00"), released: true, releaseDate: new Date("2025-06-17T08:00:00") },
             { id: 'timer-atalay', date: new Date("2022-04-22T00:00:00") },
             { id: 'timer-demirtas', date: new Date("2016-11-04T00:00:00") }
         ];
 
-        function createCountUp(elementId, startDate) {
-            const timerElement = document.getElementById(elementId);
+        function calculateDuration(startDate, endDate) {
+            let years = endDate.getFullYear() - startDate.getFullYear();
+            let months = endDate.getMonth() - startDate.getMonth();
+            let days = endDate.getDate() - startDate.getDate();
+            let hours = endDate.getHours() - startDate.getHours();
+
+            if (hours < 0) { days--; hours += 24; }
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+            if (months < 0) { years--; months += 12; }
+            
+            return { years, months, days, hours };
+        }
+        
+        function displayDuration(element, duration) {
+            const units = translations[currentLang].timeUnits;
+            element.innerHTML = `
+                <div class="time-unit"><div class="value">${duration.years}</div><div class="label">${units.years}</div></div>
+                <div class="time-unit"><div class="value">${duration.months}</div><div class="label">${units.months}</div></div>
+                <div class="time-unit"><div class="value">${duration.days}</div><div class="label">${units.days}</div></div>
+                <div class="time-unit"><div class="value">${duration.hours}</div><div class="label">${units.hours}</div></div>
+            `;
+        }
+        
+        function displayFixedDuration(config) {
+            const timerElement = document.getElementById(config.id);
+            const cardElement = document.getElementById('ozdag-card');
+            
+            const duration = calculateDuration(config.date, config.releaseDate);
+            displayDuration(timerElement, duration);
+
+            // Add released class and sticker
+            cardElement.classList.add('released');
+            const sticker = cardElement.querySelector('.released-sticker');
+            sticker.textContent = translations[currentLang].releasedSticker;
+        }
+
+        function createCountUp(config) {
+            const timerElement = document.getElementById(config.id);
 
             function updateTimer() {
                 const now = new Date();
-                
-                // If start date is in the future, show 0
-                if (startDate > now) {
-                    const units = translations[currentLang].timeUnits;
-                    timerElement.innerHTML = `
-                        <div class="time-unit"><div class="value">0</div><div class="label">${units.days}</div></div>
-                        <div class="time-unit"><div class="value">0</div><div class="label">${units.hours}</div></div>
-                    `;
+                if (config.date > now) {
+                    displayDuration(timerElement, { years: 0, months: 0, days: 0, hours: 0 });
                     return;
                 }
-
-                let tempDate = new Date(startDate);
-                
-                let years = now.getFullYear() - tempDate.getFullYear();
-                let months = now.getMonth() - tempDate.getMonth();
-                let days = now.getDate() - tempDate.getDate();
-                let hours = now.getHours() - tempDate.getHours();
-
-                if (hours < 0) {
-                    days--;
-                    hours += 24;
-                }
-                if (days < 0) {
-                    months--;
-                    // Get days in the previous month
-                    const lastMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-                    days += lastMonth.getDate();
-                }
-                if (months < 0) {
-                    years--;
-                    months += 12;
-                }
-
-                const units = translations[currentLang].timeUnits;
-                let timerHTML = '';
-                
-                // Only show years if > 0
-                if (years > 0) {
-                    timerHTML += `<div class="time-unit"><div class="value">${years}</div><div class="label">${units.years}</div></div>`;
-                }
-                
-                // Only show months if > 0
-                if (months > 0) {
-                    timerHTML += `<div class="time-unit"><div class="value">${months}</div><div class="label">${units.months}</div></div>`;
-                }
-                
-                // Always show days and hours
-                timerHTML += `<div class="time-unit"><div class="value">${days}</div><div class="label">${units.days}</div></div>`;
-                timerHTML += `<div class="time-unit"><div class="value">${hours}</div><div class="label">${units.hours}</div></div>`;
-                
-                timerElement.innerHTML = timerHTML;
+                const duration = calculateDuration(config.date, now);
+                displayDuration(timerElement, duration);
             }
-
-            updateTimer(); // Initial call
-            return setInterval(updateTimer, 1000 * 60); // Update every minute is sufficient for this display
+            updateTimer();
+            return setInterval(updateTimer, 1000 * 60);
         }
 
         function startAllTimers() {
-            // Clear existing intervals if any
             if (window.timerIntervals) {
                 window.timerIntervals.forEach(clearInterval);
             }
             window.timerIntervals = [];
 
             clockConfigs.forEach(config => {
-                const intervalId = createCountUp(config.id, config.date);
-                window.timerIntervals.push(intervalId);
+                if (config.released) {
+                    displayFixedDuration(config);
+                } else {
+                    const intervalId = createCountUp(config);
+                    window.timerIntervals.push(intervalId);
+                }
             });
         }
         
-        // --- INITIALIZATION ---
         languageToggle.addEventListener('change', () => {
             const lang = languageToggle.checked ? 'tr' : 'en';
             switchLanguage(lang);
-            startAllTimers(); // Restart timers to update labels
+            startAllTimers(); // Restart to update labels correctly
         });
 
-        // Set initial state on page load
+        // Initial Load
         if (currentLang === 'tr') {
             languageToggle.checked = true;
         }
