@@ -38,6 +38,7 @@ body {
     padding: 5px 10px;
     border-radius: 20px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 10;
 }
 
 .lang-toggle {
@@ -103,33 +104,27 @@ input:checked + .slider:before {
     padding: 25px;
     display: flex;
     flex-direction: column;
-    position: relative;
-    padding-top: 160px; /* Make room for the absolutely positioned header */
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.5s;
 }
 
-/* Image positioned absolutely at top-left */
+.person-card.released {
+    opacity: 0.7;
+}
+
 .person-card img {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #eee;
-    position: absolute;
-    top: 25px;
-    left: 25px;
+    margin-bottom: 15px;
 }
 
-/* h2 positioned absolutely next to the image */
 .person-card h2 {
-    margin: 0;
+    margin: 0 0 5px 0;
     font-size: 1.8em;
-    color: #333; /* Default color */
-    line-height: 1.1em;
-    position: absolute;
-    top: 85px; /* 25px (image top) + 60px (half of 120px image height) */
-    left: 165px; /* 25px + 120px image width + 20px margin */
-    right: 25px; /* Leave some margin on the right */
-    transform: translateY(-50%); /* Move up by 50% of its own height to center */
 }
 
 .person-card .status {
@@ -137,24 +132,39 @@ input:checked + .slider:before {
     color: #c82333;
     font-weight: 600;
     margin-bottom: 15px;
+    position: relative; /* Needed for sticker positioning */
+    padding: 5px 10px;
+}
+
+/* --- NEW RELEASED STICKER --- */
+.released-sticker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-10deg);
+    background-color: #28a745;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
     text-align: center;
+    width: max-content;
 }
 
 .timer-display {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     width: 100%;
+    max-width: 280px;
     margin: 0 auto 20px auto;
-    flex-wrap: wrap;
 }
 
 .time-unit {
     background-color: #f9f9f9;
     padding: 10px 5px;
     border-radius: 5px;
-    text-align: center;
 }
 
 .time-unit .value {
@@ -179,83 +189,8 @@ input:checked + .slider:before {
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s;
-    text-align: center;
 }
 
 .info-link:hover {
     background-color: #0056b3;
-}
-
-/* Custom styling for each person's card */
-
-/* İmamoğlu Card - Red background, white title, black timer/text */
-.person-card:nth-child(1) {
-    background-color: #E81D23;
-}
-
-.person-card:nth-child(1) h2 {
-    color: white;
-}
-
-.person-card:nth-child(1) .status,
-.person-card:nth-child(1) .time-unit .value,
-.person-card:nth-child(1) .time-unit .label {
-    color: black;
-}
-
-.person-card:nth-child(1) .time-unit {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-/* Özdağ Card - White background, red title, black timer/text */
-.person-card:nth-child(2) {
-    background-color: white;
-}
-
-.person-card:nth-child(2) h2 {
-    color: #BF181F;
-}
-
-.person-card:nth-child(2) .status,
-.person-card:nth-child(2) .time-unit .value,
-.person-card:nth-child(2) .time-unit .label {
-    color: black;
-}
-
-/* Atalay Card - Red background, white title, black timer/text */
-.person-card:nth-child(3) {
-    background-color: #DB333C;
-}
-
-.person-card:nth-child(3) h2 {
-    color: white;
-}
-
-.person-card:nth-child(3) .status,
-.person-card:nth-child(3) .time-unit .value,
-.person-card:nth-child(3) .time-unit .label {
-    color: black;
-}
-
-.person-card:nth-child(3) .time-unit {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-
-/* Demirtaş Card - Purple background, white title, black timer/text */
-.person-card:nth-child(4) {
-    background-color: #74489C;
-}
-
-.person-card:nth-child(4) h2 {
-    color: white;
-}
-
-.person-card:nth-child(4) .status,
-.person-card:nth-child(4) .time-unit .value,
-.person-card:nth-child(4) .time-unit .label {
-    color: black;
-}
-
-.person-card:nth-child(4) .time-unit {
-    background-color: rgba(255, 255, 255, 0.9);
 }
